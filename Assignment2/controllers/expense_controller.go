@@ -10,7 +10,8 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func CreateExpense(w http.ResponseWriter, r *http.Request) {
+// creating an expense
+func Create(w http.ResponseWriter, r *http.Request) {
 	var expense models.Expense
 
 	err := json.NewDecoder(r.Body).Decode(&expense)
@@ -30,7 +31,8 @@ func CreateExpense(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(created)
 }
 
-func GetAllExpenses(w http.ResponseWriter, r *http.Request) {
+// get all expenses
+func Index(w http.ResponseWriter, r *http.Request) {
 	expenses, err := services.GetAllExpenses()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -59,7 +61,8 @@ func GetExpenseByID(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(expense)
 }
 
-func UpdateExpense(w http.ResponseWriter, r *http.Request) {
+// update an existing expense
+func Update(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
@@ -88,7 +91,8 @@ func UpdateExpense(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(updated)
 }
 
-func DeleteExpense(w http.ResponseWriter, r *http.Request) {
+// delete a particular expense by id
+func Destroy(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {

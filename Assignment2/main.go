@@ -17,11 +17,11 @@ func main() {
 	r := mux.NewRouter()
 
 	// Expense routes
-	r.HandleFunc("/api/expenses", controllers.CreateExpense).Methods("POST")
-	r.HandleFunc("/api/expenses", controllers.GetAllExpenses).Methods("GET")
+	r.HandleFunc("/api/expenses", controllers.Create).Methods("POST")
+	r.HandleFunc("/api/expenses", controllers.Index).Methods("GET")
 	r.HandleFunc("/api/expenses/{id}", controllers.GetExpenseByID).Methods("GET")
-	r.HandleFunc("/api/expenses/{id}", controllers.UpdateExpense).Methods("PUT")
-	r.HandleFunc("/api/expenses/{id}", controllers.DeleteExpense).Methods("DELETE")
+	r.HandleFunc("/api/expenses/{id}", controllers.Update).Methods("PUT")
+	r.HandleFunc("/api/expenses/{id}", controllers.Destroy).Methods("DELETE")
 
 	// Filter routes
 	r.HandleFunc("/api/expenses/user/{user_id}", controllers.GetExpensesByUserID).Methods("GET")
