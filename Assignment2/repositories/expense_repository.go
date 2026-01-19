@@ -7,6 +7,7 @@ import (
 )
 
 func CreateExpense(expense models.Expense) (models.Expense, error) {
+	// returning id returns the last affected id 
 	query := `INSERT INTO expenses (amount, category, description, date, user_id) VALUES ($1,$2,$3,$4,$5) RETURNING id`
 
 	err := config.DB.QueryRow(

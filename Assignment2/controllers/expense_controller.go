@@ -110,7 +110,12 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(http.StatusNoContent)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	json.NewEncoder(w).Encode(map[string]string{
+		"message": "Expense deleted successfully",
+	})
 }
 
 func GetExpensesByUserID(w http.ResponseWriter, r *http.Request) {

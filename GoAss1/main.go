@@ -19,8 +19,8 @@ type Expense struct{
 	Date string `json:"date"`
 	
 }
-
-func loadExpenses()[]Expense{
+// get all existing expenses
+func Edit()[]Expense{
 	data,err:=os.ReadFile(filepath)
 	if err!=nil{
 		fmt.Println("Error while reading a file ",err)
@@ -30,7 +30,7 @@ func loadExpenses()[]Expense{
 	json.Unmarshal(data,&expenses) // json to go struct format 
 	return expenses
 }
-
+// store in database 
 func saveExpenses(expenses []Expense){
 	data,err:=json.MarshalIndent(expenses,""," ")
 	if err!=nil{
@@ -41,8 +41,8 @@ func saveExpenses(expenses []Expense){
 	// 6 for read +write 110
 	//4 fpr read  100
 }
-
-func addExpense(reader *bufio.Reader){
+// Create new expense 
+func Create(reader *bufio.Reader){
 	expenses:=loadExpenses()
 	fmt.Println("Enter amount")
 	amt,err:=reader.ReadString('\n')
@@ -85,7 +85,8 @@ func addExpense(reader *bufio.Reader){
 
 	fmt.Println("Expense added successfully!")
 }
-func viewExpenses() {
+// view all expenses 
+func Index() {
 	expenses := loadExpenses()
 
 	if len(expenses) == 0 {
@@ -101,7 +102,8 @@ func viewExpenses() {
 			e.Id, e.Date, e.Category, e.Amount, e.Description)
 	}
 }
-func deleteExpense(reader *bufio.Reader) {
+// delete a particular expense 
+func Destroy(reader *bufio.Reader) {
 	expenses := loadExpenses()
 
 	fmt.Print("Enter Expense ID to delete: ")
